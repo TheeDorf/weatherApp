@@ -8,6 +8,8 @@ const tempToggle = document.querySelector("#temp-toggle");
 const savedAreasList = document.querySelector("#saved-areas");
 const saveAreaButton = document.querySelector("#save-area");
 const removeAreaButton = document.querySelector("#remove-area");
+const shown = document.getElementById("shown");
+const checkbox = document.getElementById("saveLocation");
 
 let currentLocation = "";
 let currentData;
@@ -57,7 +59,9 @@ function saveLocationAsSavedArea() {
     savedAreas.push(currentLocation);
     const li = document.createElement("li");
     li.textContent = currentLocation;
-    savedAreasList.appendChild(li);
+    console.log(li);
+    console.log(savedAreas);
+    shown.appendChild(li);
   }
 }
 
@@ -84,6 +88,10 @@ document.querySelector("form").addEventListener("submit", async(event)=>{
         console.log(error);
         weatherDisplay.textContent = "error getting weather data";
     }
+    if (checkbox.checked){
+
+        saveLocationAsSavedArea(currentLocation);
+    }
 });
 
-tempToggle.addEventListener("click", toggleTemperatureUnits);
+// tempToggle.addEventListener("click", toggleTemperatureUnits);
