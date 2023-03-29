@@ -21,8 +21,7 @@ async function fetchWeatherData(location) {
 
   return data;
 }
-fetchWeatherData()
-console.log("show data")
+
 function processWeatherData(data) {
   const processedData = {
     location: data.name,
@@ -55,6 +54,7 @@ function toggleTemperatureUnits() {
 
 function saveLocationAsSavedArea() {
   if (currentLocation && !savedAreas.includes(currentLocation)) {
+    savedAreas.push(currentLocation);
     const li = document.createElement("li");
     li.textContent = currentLocation;
     savedAreasList.appendChild(li);
@@ -65,7 +65,25 @@ function removeLocationFromSavedAreas() {
   const index = savedAreas.indexOf(currentLocation);
   if (index !== -1) {
     savedAreas.splice(index, 1);
-    const li = savedAreasList.querySelector(`li:nth-of-type(${index + 1})`);
+    const li = savedAreasList.querySelector(`(${index + 1})`);
     savedAreasList.removeChild(li);
   }
 }
+
+document.querySelector("form").addEventListener("submit", async(event)=>{
+    event.preventDefault();
+    const location = locationInput.value;
+    currentLocation = location;
+    try{
+        const data = await fetchWeatherData(location);
+        const processedData = processWeatherData(data);
+        currentData = processedData;
+        displayWeatherData(processedData);
+
+    }catch (error){
+        console.log(error);
+        weatherDisplay.textContent = "error getting weather data";
+    }
+});
+
+tempToggle.addEventListener("click", toggleTemperatureUnits);

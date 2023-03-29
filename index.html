@@ -5,13 +5,17 @@
     <title>Weather App</title>
     <link rel="stylesheet" href="style.css">
   </head>
-  <body>
+  <div class="container">
+    <h1>Weather App</h1>
     <form>
-      <input type="text" id="location">
+      <label for="location">Enter a location:</label>
+      <input type="text" id="location" name="location">
       <button type="submit">Get Weather</button>
+      <label for="saveLocation">Save this location:</label>
+      <input type="checkbox" id="saveLocation" name="saveLocation">
     </form>
     <div id="weather"></div>
-    
+  </div>
     <script src="index.js" ></script>
   </body>
 </html>
